@@ -256,7 +256,7 @@ std::string layerName(Layer:: LayerType t){
 // aggregate the timings for each indivual layers
 void timingTest(const Model& model, const Path& basePath){
 
-    logInfo("\nStarting Inference Tests");
+    logInfo("Starting Inference Tests");
 
     LayerData img(model[0].getInputParams(), basePath / "image_0.bin");
     img.loadData();
@@ -265,12 +265,12 @@ void timingTest(const Model& model, const Path& basePath){
     std::vector<fp32> layerTimes(numLayers);
 
     const LayerData* currentLayer = &img;
-    for(int i = 0; i < numLayers; i++){
+    for(std::size_t i = 0; i < numLayers; i++){
         Timer timer("Layer_" + std::to_string(i) + "_" + layerName(model[i].getLType()));
         
         timer.start();
         const LayerData& out = model.inferenceLayer(*currentLayer, i, Layer::InfType::NAIVE);
-        timer.start();
+        timer.stop();
 
         layerTimes[i] = timer.milliseconds;
         currentLayer = &out;
@@ -281,19 +281,25 @@ void timingTest(const Model& model, const Path& basePath){
 
     logInfo("Layer Timing Breakdown");
 
-    for(int i = 0; i < numLayers; i++){
+    for(std::size_t i = 0; i < numLayers; i++){
         float percent;
-        if(total < 0){
+        if(total > 0){
             percent = 100.0 * layerTimes[i] / total;
         }else{
             percent = 0;
         }
-        // TO-DO
-        // log data
-    }
+        logInfo(layerName(model[i].getLType()) + " Layer (" + std::to_string(i) + std::to_string(layerTimes[i]) + " ms) " + std::to_string(percent) + "% of total time");
 
-    // TO-DO
-    // compare output data vs expeected
+    }
+    logInfo("Total inference time: " + std::to_string(total) + "ms");
+
+    LayerData expected(model.getOutputLayer().getOutputParams(), basePath / "image_0_data" / "layer_11_output.bin");
+    expected.loadData();
+    currentLayer->compareWithinPrint<fp32>(expected);
+
+    logInfo("Completed Layer timings");
+
+
 }
 
 
