@@ -240,6 +240,63 @@ void runInferenceTest(const Model& model, const Path& basePath) {
     output.compareWithinPrint<fp32>(expected);
 }
 
+// get an enum to assign to a layer
+std::string layerName(Layer:: LayerType t){
+    switch(t){
+        case Layer::LayerType::CONVOLUTIONAL:   return "Convolutional";
+        case Layer::LayerType::DENSE:           return "Dense";
+        case Layer::LayerType::SOFTMAX:         return "SoftMax";
+        case Layer::LayerType::MAX_POOLING:     return "MaxPooling";
+        case Layer::LayerType::FLATTEN:         return "Flatten";
+        default:                                return "Error";
+    }
+
+}
+
+// aggregate the timings for each indivual layers
+void timingTest(const Model& model, const Path& basePath){
+
+    logInfo("\nStarting Inference Tests");
+
+    LayerData img(model[0].getInputParams(), basePath / "image_0.bin");
+    img.loadData();
+
+    const std::size_t numLayers = model.getNumLayers();
+    std::vector<fp32> layerTimes(numLayers);
+
+    const LayerData* currentLayer = &img;
+    for(int i = 0; i < numLayers; i++){
+        Timer timer("Layer_" + std::to_string(i) + "_" + layerName(model[i].getLType()));
+        
+        timer.start();
+        const LayerData& out = model.inferenceLayer(*currentLayer, i, Layer::InfType::NAIVE);
+        timer.start();
+
+        layerTimes[i] = timer.milliseconds;
+        currentLayer = &out;
+    }
+
+    fp32 total = 0;
+    for(auto ms : layerTimes) total += ms;
+
+    logInfo("Layer Timing Breakdown");
+
+    for(int i = 0; i < numLayers; i++){
+        float percent;
+        if(total < 0){
+            percent = 100.0 * layerTimes[i] / total;
+        }else{
+            percent = 0;
+        }
+        // TO-DO
+        // log data
+    }
+
+    // TO-DO
+    // compare output data vs expeected
+}
+
+
 void runTests() {
     // Base input data path (determined from current directory of where you are running the command)
     Path basePath("data");  // May need to be altered for zedboards loading from SD Cards
@@ -256,6 +313,13 @@ void runTests() {
 
     // Run an end-to-end inference test
     runInferenceTest(model, basePath);
+
+    // call our timing function
+    timingTest(model, basePath);
+
+
+
+
 
     // Clean up
     model.freeLayers();
