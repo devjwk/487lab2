@@ -1,6 +1,31 @@
-# CprE 487/587 Lab 2 — CNN Inference Framework in C++
+<div align="center">
 
-A from-scratch C++ implementation of a TinyImageNet CNN, checked layer by layer against TensorFlow and timed on a lab PC and a ZedBoard.
+# CNN INFERENCE IN C++
+
+### Every multiply-add written out, counted and timed
+
+**C++ · TensorFlow reference · ZedBoard**
+
+![Language](https://img.shields.io/badge/Language-C%2B%2B-6366F1?style=flat-square)
+![Board](https://img.shields.io/badge/Board-ZedBoard-0F172A?style=flat-square)
+![Layers](https://img.shields.io/badge/Layers-12%20of%2012%20match-0891B2?style=flat-square)
+![Stage](https://img.shields.io/badge/Stage-Complete-F59E0B?style=flat-square)
+
+Iowa State University · CprE 487/587 · Lab 2 · Team 06
+
+[Overview](#overview) · [Where this lab fits](#where-this-lab-fits) · [My role](#my-role) · [Results](#results) · [Limitations](#limitations-and-next-steps)
+
+</div>
+
+---
+
+> **Where it stands — Complete**  
+> All 12 layers and the full model match TensorFlow, and inference is timed on a lab PC and a ZedBoard.  
+> Arithmetic is 32-bit floating point here; quantization follows in Lab 4.
+
+| Max error vs TensorFlow | Lab PC | ZedBoard | Conv2 share of MACs |
+| :---: | :---: | :---: | :---: |
+| **2.38 × 10⁻⁷** | **147 ms / image** | **2,266 ms / image** | **61%** |
 
 | | |
 |---|---|
@@ -16,6 +41,14 @@ The model has six convolution layers, three max-pool layers and two dense layers
 
 - **Problem:** TensorFlow hides what inference costs. To design hardware for it, we needed our own implementation where every multiply-add is visible and countable.
 - **What we built:** each layer written with plain `for` loops inside the course framework, loading the weights exported from our Lab 1 model.
+
+## Where this lab fits
+
+```mermaid
+flowchart LR
+    L1["Lab 1 · Train in TensorFlow"] --> L2["Lab 2 · C++ framework"] --> L3["Lab 3 · MAC units"] --> L4["Lab 4 · Quantization"] --> L5["Lab 5 · Hardware integration"]
+    style L2 fill:#6366F1,color:#ffffff,stroke:#4338CA
+```
 
 ## My role
 
