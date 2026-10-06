@@ -1,15 +1,11 @@
 <div align="center">
 
-# CNN INFERENCE IN C++
+<img src="assets/banner.svg" alt="CNN INFERENCE IN C++ — Every multiply-add written out, counted and timed" width="100%">
 
-### Every multiply-add written out, counted and timed
-
-**C++ · TensorFlow reference · ZedBoard**
-
-![Language](https://img.shields.io/badge/Language-C%2B%2B-6366F1?style=flat-square)
-![Board](https://img.shields.io/badge/Board-ZedBoard-0F172A?style=flat-square)
-![Layers](https://img.shields.io/badge/Layers-12%20of%2012%20match-0891B2?style=flat-square)
-![Stage](https://img.shields.io/badge/Stage-Complete-F59E0B?style=flat-square)
+![Language](https://img.shields.io/badge/Language-C%2B%2B-1D4ED8?style=flat-square&labelColor=172554)
+![Board](https://img.shields.io/badge/Board-ZedBoard-1E3A8A?style=flat-square&labelColor=172554)
+![Layers](https://img.shields.io/badge/Layers-12%20of%2012%20match-6366F1?style=flat-square&labelColor=172554)
+![Stage](https://img.shields.io/badge/Stage-Complete-0891B2?style=flat-square&labelColor=172554)
 
 Iowa State University · CprE 487/587 · Lab 2 · Team 06
 
@@ -45,9 +41,10 @@ The model has six convolution layers, three max-pool layers and two dense layers
 ## Where this lab fits
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#1D4ED8", "primaryTextColor": "#ffffff", "primaryBorderColor": "#172554", "lineColor": "#94A3B8", "secondaryColor": "#1D4ED8", "tertiaryColor": "#172554", "clusterBkg": "#F8FAFC", "clusterBorder": "#94A3B8", "edgeLabelBackground": "#F1F5F9", "fontFamily": "ui-sans-serif, system-ui, sans-serif"}}}%%
 flowchart LR
     L1["Lab 1 · Train in TensorFlow"] --> L2["Lab 2 · C++ framework"] --> L3["Lab 3 · MAC units"] --> L4["Lab 4 · Quantization"] --> L5["Lab 5 · Hardware integration"]
-    style L2 fill:#6366F1,color:#ffffff,stroke:#4338CA
+    style L2 fill:#93C5FD,color:#0B1220,stroke:#172554
 ```
 
 ## My role
