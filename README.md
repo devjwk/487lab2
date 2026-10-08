@@ -33,7 +33,7 @@ Iowa State University · CprE 487/587 · Lab 2 · Team 06
 | My role | Layer implementation and performance measurement |
 | Stack | C++, Make, TensorFlow/Keras (reference), ZedBoard |
 | Report | [Lab 2 report (PDF)](report/lab2_report_06.pdf) |
-| Next labs | [Lab 3 — MAC units](https://github.com/devjwk/487lab3), [Lab 4 — quantization](https://github.com/devjwk/cpre487lab4) |
+| Next labs | [Lab 3 — MAC units](https://github.com/devjwk/cpre487lab3), [Lab 4 — quantization](https://github.com/devjwk/cpre487lab4) |
 
 ## Overview
 
