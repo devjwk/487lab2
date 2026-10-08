@@ -1,3 +1,6 @@
+> **This is the original September 2026 version of Lab 2.**  
+> The current version, re-implemented from the course framework and re-verified on x86 and the ZedBoard, is in [devjwk/cpre487lab2](https://github.com/devjwk/cpre487lab2). This repository is kept for reference.
+
 <div align="center">
 
 <img src="assets/banner.svg" alt="CNN INFERENCE IN C++ — Every multiply-add written out, counted and timed" width="100%">
